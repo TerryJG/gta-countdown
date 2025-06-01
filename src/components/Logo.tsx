@@ -7,11 +7,11 @@ export default function Logo({ containerClassName = "", logoClassName = "", vari
 
   function logoVariant(): string {
     if (variant === 1) {
-      return "/gta-logo-variant-1.webp";
+      return "/gta-countdown/gta-logo-variant-1.webp";
     } else if (variant === 2) {
-      return "/gta-logo-variant-2.webp";
+      return "/gta-countdown/gta-logo-variant-2.webp";
     }
-    return "/gta-logo-variant-1.webp";
+    return "/gta-countdown/gta-logo-variant-1.webp";
   }
 
   useEffect(() => {

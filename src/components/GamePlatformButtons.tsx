@@ -8,7 +8,7 @@ const platforms = [
   {
     alt: "Xbox Series X|S",
     storeName: "Xbox Store",
-    src: "/platforms/xbox-series-xs.webp",
+    src: "/gta-countdown/platforms/xbox-series-xs.webp",
     width: "w-30",
     buttonColor: "bg-[#107c10] hover:bg-[#107c10]/90",
     buttonClassName: "",
@@ -17,7 +17,7 @@ const platforms = [
   {
     alt: "PlayStation 5",
     storeName: "PlayStation Store",
-    src: "/platforms/playstation-5.webp",
+    src: "/gta-countdown/platforms/playstation-5.webp",
     width: "w-20",
     buttonColor: "bg-[#0070D1] hover:bg-[#0070D1]/90",
     buttonClassName: "",
@@ -26,7 +26,7 @@ const platforms = [
   {
     alt: "Steam",
     storeName: "Steam",
-    src: "/platforms/steam.webp",
+    src: "/gta-countdown/platforms/steam.webp",
     width: "w-20",
     buttonColor: "bg-gray-800",
     buttonClassName: "",
@@ -36,7 +36,7 @@ const platforms = [
     alt: "Rockstar Games Launcher",
     storeName: "Rockstar Games Store",
     width: "w-5",
-    src: "/platforms/rockstargames.webp",
+    src: "/gta-countdown/platforms/rockstargames.webp",
     buttonColor: "bg-[#e19808] hover:bg-[#e19808]/90",
     buttonClassName: "p-2",
     iconClassName: "invert ms-1",
