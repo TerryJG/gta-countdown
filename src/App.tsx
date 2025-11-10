@@ -7,7 +7,7 @@ import { releaseDate } from "@/constants/appInfo";
 
 export default function App() {
   return (
-    <div className="font-inter relative grid min-h-screen grid-rows-[1fr_auto] bg-gradient-to-t from-[#111117] to-[#1a1826] px-4 py-4 text-white">
+    <div className="font-inter relative grid min-h-screen grid-rows-[1fr_auto] bg-linear-to-t from-[#111117] to-[#1a1826] px-4 py-4 text-white">
       <main className="flex h-full flex-col items-center justify-center">
         <Logo variant={1} containerClassName="me-6 md:me-18 mb-4 pt-20" logoClassName="px-4 max-h-72 md:max-h-96" />
 

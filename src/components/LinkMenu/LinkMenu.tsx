@@ -84,7 +84,7 @@ export default function LinkMenu() {
                 >
                   {alertsEnabled ? (
                     <div 
-                      className="flex min-w-56 cursor-pointer items-center justify-between px-2 py-1.5 hover:bg-[var(--focus-bg-color)]/30" 
+                      className="flex min-w-56 cursor-pointer items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/30" 
                       onClick={(e) => handleExternalLinkClick(link.url, e)}
                     >
                       <span className="capitalize">{link.platform}</span>
@@ -97,7 +97,7 @@ export default function LinkMenu() {
                       href={link.url} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="flex min-w-56 items-center justify-between px-2 py-1.5 hover:bg-[var(--focus-bg-color)]/50"
+                      className="flex min-w-56 items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/50"
                     >
                       <span className="capitalize">{link.platform}</span>
                       <MenubarShortcut>
