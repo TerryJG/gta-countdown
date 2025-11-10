@@ -1,6 +1,6 @@
 export const releaseDate = {
-  string: "May 26, 2026",
-  iso: "2026-05-26T00:00:00Z",
+  string: "November 19, 2026",
+  iso: "2026-11-19T00:00:00Z",
 };
 
 export const gameTrailers = {

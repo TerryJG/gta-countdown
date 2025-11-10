@@ -13,7 +13,7 @@ export default function App() {
 
         <section id="content" className="flex h-full w-full max-w-7xl flex-col items-center justify-center">
           <div id="overview" className="flex w-full flex-col pb-4 text-center">
-            <h2 className="text-6xl font-bold tracking-wide text-white uppercase select-none">May 26 2026</h2>
+            <h2 className="text-6xl font-bold tracking-wide text-white uppercase select-none">{releaseDate.string.replaceAll(",", "")}</h2>
           </div>
 
           <Timer targetDate={releaseDate.iso} />
