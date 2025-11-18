@@ -1,3 +1,9 @@
+/**
+ * calculateTimeElapsed: Returns raw values (days, hours, minutes, seconds)
+ * getRelativeTimeElapsed: Returns relative time values ("a few seconds ago", "2 months ago")
+ * getAbsoluteTimeElapsed: Returns precise time values ("2 years 3 months 5 days ago")
+ */
+
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 
@@ -24,12 +30,12 @@ export function calculateTimeElapsed(dateString: string | Date): TimeElapsed {
     const minutes = Math.floor((absDiff % (60 * 60)) / 60);
     const seconds = Math.floor(absDiff % 60);
 
-    return { 
-      days: -days, 
-      hours: -hours, 
-      minutes: -minutes, 
+    return {
+      days: -days,
+      hours: -hours,
+      minutes: -minutes,
       seconds: -seconds,
-      totalSeconds: diff 
+      totalSeconds: diff,
     };
   }
 
@@ -39,59 +45,76 @@ export function calculateTimeElapsed(dateString: string | Date): TimeElapsed {
   const minutes = Math.floor((diff % (60 * 60)) / 60);
   const seconds = Math.floor(diff % 60);
 
-  return { 
-    days, 
-    hours, 
-    minutes, 
+  return {
+    days,
+    hours,
+    minutes,
     seconds,
-    totalSeconds: diff 
+    totalSeconds: diff,
   };
 }
 
 export function getRelativeTimeElapsed(dateString: string | Date): string {
   const now = dayjs();
   const date = dayjs(dateString);
-  
+
   // Check if the date is in the future
   if (date.isAfter(now)) {
-    return `in the future (${date.format('MMM D, YYYY')})`;
+    return `in the future (${date.format("MMM D, YYYY")})`;
   }
-  
-  const elapsed = now.diff(date, 'second');
-  const relativeTime = dayjs.duration(elapsed, 'seconds').humanize(true);
-  
+
+  const elapsed = now.diff(date, "second");
+  const relativeTime = dayjs.duration(elapsed, "seconds").humanize(true);
+
   return relativeTime;
 }
-
 
 export function getAbsoluteTimeElapsed(dateString: string | Date): string {
   const now = dayjs();
   const date = dayjs(dateString);
-  
-  // Check if the date is in the future
-  if (date.isAfter(now)) {
-    return `${date.format('MMM D, YYYY')} (in the future)`;
+  const isFuture = date.isAfter(now);
+
+  // For future dates, calculate time remaining in the same format
+  if (isFuture) {
+    const years = date.diff(now, "year");
+    const months = date.diff(now, "month") % 12;
+    const days = date.diff(now.add(years, "year").add(months, "month"), "day");
+
+    const parts: string[] = [];
+
+    if (years > 0) {
+      parts.push(`${years} ${years === 1 ? "year" : "years"}`);
+    }
+
+    if (months > 0) {
+      parts.push(`${months} ${months === 1 ? "month" : "months"}`);
+    }
+
+    if (days > 0 || parts.length === 0) {
+      parts.push(`${days} ${days === 1 ? "day" : "days"}`);
+    }
+
+    return `${parts.join(" ")} in the future`;
   }
-  
-  const years = now.diff(date, 'year');
-  const months = now.diff(date, 'month') % 12;
-  const days = now.diff(date.add(years, 'year').add(months, 'month'), 'day');
-  
-  const parts: string[] = [];  // Format the result based on elapsed time
-  
+
+  // For past dates
+  const years = now.diff(date, "year");
+  const months = now.diff(date, "month") % 12;
+  const days = now.diff(date.add(years, "year").add(months, "month"), "day");
+
+  const parts: string[] = []; // Format the result based on elapsed time
+
   if (years > 0) {
-    parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+    parts.push(`${years} ${years === 1 ? "year" : "years"}`);
   }
-  
+
   if (months > 0) {
-    parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+    parts.push(`${months} ${months === 1 ? "month" : "months"}`);
   }
-  
+
   if (days > 0 || parts.length === 0) {
-    parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
+    parts.push(`${days} ${days === 1 ? "day" : "days"}`);
   }
-  
-  return parts.join(' ');
+
+  return `${parts.join(" ")} ago`;
 }
-
-
