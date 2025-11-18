@@ -8,7 +8,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogAction,
-  AlertDialogCancel
+  AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 
 type ExternalLinkDialogProps = {
@@ -21,10 +21,10 @@ type ExternalLinkDialogProps = {
 const ExternalLinkDialog = ({ isOpen, url, onConfirm, onCancel }: ExternalLinkDialogProps) => {
   return (
     <AlertDialog open={isOpen}>
-      <AlertDialogContent className="bg-black/80 border-gray-700 text-white">
+      <AlertDialogContent className="border-gray-700 bg-black/80 text-white">
         <AlertDialogHeader className="gap-3">
           <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="text-rose-500 text-xl" />
+            <FontAwesomeIcon icon={faExclamationTriangle} className="text-xl text-rose-500" />
             <AlertDialogTitle className="text-rose-500">External Link Navigation</AlertDialogTitle>
           </div>
           <AlertDialogDescription className="text-gray-200">
@@ -33,16 +33,10 @@ const ExternalLinkDialog = ({ isOpen, url, onConfirm, onCancel }: ExternalLinkDi
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-2">
-          <AlertDialogCancel 
-            onClick={onCancel}
-            className="bg-gray-700 hover:bg-gray-800 text-white border-gray-600"
-          >
+          <AlertDialogCancel onClick={onCancel} className="border-gray-600 bg-gray-700 text-white hover:bg-gray-800">
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction 
-            onClick={onConfirm}
-            className="bg-green-700 hover:bg-green-800 text-white"
-          >
+          <AlertDialogAction onClick={onConfirm} className="bg-green-700 text-white hover:bg-green-800">
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -51,4 +45,4 @@ const ExternalLinkDialog = ({ isOpen, url, onConfirm, onCancel }: ExternalLinkDi
   );
 };
 
-export default ExternalLinkDialog; 
+export default ExternalLinkDialog;

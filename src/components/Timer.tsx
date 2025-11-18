@@ -114,20 +114,20 @@ export default function Timer({ targetDate, className = "" }: { targetDate: stri
 
   return (
     <section id="timer" className={`w-full ${className}`}>
-      {/* For mobile users, the timer will be laid out in a grid of two columns && one row.
-          The first column will span the entire row, showing the greatest time unit available. */}
-      <div className="grid grid-cols-2 gap-4 sm:hidden">
+      {/* For mobile users, the timer will be laid out in a grid with the greatest time unit on the left,
+          and remaining units on the right in a 2-column grid with seconds spanning the full width */}
+      <div className="flex gap-2 justify-center sm:hidden">
         <div className="flex items-center justify-center"> {/* First column - Greatest time unit */}
           {showGreatestTimeUnit()}
         </div>
 
-        {/* Second column - Grid of remaining units */}
-        <div className="grid grid-cols-2 grid-rows-2 gap-1">
+        {/* Second column - Grid of remaining units with seconds spanning full width */}
+        <div className="grid grid-cols-2 gap-1 auto-rows-min">
           {greatestUnit !== "months" && timeConfig.showMonths && <TimeUnit label="Month" getUnitValue={getMonths} />}
           {greatestUnit !== "days" && timeConfig.showDays && <TimeUnit label="Day" getUnitValue={getDays} />}
           {greatestUnit !== "hours" && timeConfig.showHours && <TimeUnit label="Hour" getUnitValue={getHours} />}
           {greatestUnit !== "minutes" && timeConfig.showMinutes && <TimeUnit label="Minute" getUnitValue={getMinutes} />}
-          {greatestUnit !== "seconds" && <TimeUnit label="Second" getUnitValue={getSeconds} />}
+          {greatestUnit !== "seconds" && <TimeUnit label="Second" getUnitValue={getSeconds} className="col-span-2" />}
         </div>
       </div>
 

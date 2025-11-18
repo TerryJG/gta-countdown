@@ -105,7 +105,7 @@ export default function GamePlatformButtons() {
   }, [loadedImages, setIsComponentLoading]);
 
   return (
-    <section id="platform-buttons" className="flex flex-wrap justify-center gap-3 px-4 w-full">
+    <section id="platform-buttons" className="flex w-full flex-wrap justify-center gap-3 px-4">
       {/* External Link Dialog */}
       {pendingUrl && <AlertDialog isOpen={showAlert} url={pendingUrl} onConfirm={confirmNavigation} onCancel={cancelNavigation} />}
 
