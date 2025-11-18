@@ -1,13 +1,12 @@
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger, MenubarCheckboxItem } from "@/components/ui/menubar";
 import { gameTrailers, externalLinks } from "@/constants/appInfo";
-import { YouTubeVideoCard } from "@/components/LinkMenu/YouTubeVideoCard";
+import { YouTubeVideoCard } from "@/components/NavigationBar/YouTubeVideoCard";
 import { type SocialMediaPlatforms, SocialMediaButton } from "@/components/SocialMediaButtons";
 import { useAtom, isBlurEnabled, isAlertEnabled } from "@/stores/globalStore";
 import { useState } from "react";
 import AlertDialog from "@/components/AlertDialog";
 
-
-export default function LinkMenu() {
+export default function NavigationBar() {
   const [blurEffectEnabled, setBlurEffectEnabled] = useAtom(isBlurEnabled);
   const [alertsEnabled, setAlertsEnabled] = useAtom(isAlertEnabled);
   const [showAlert, setShowAlert] = useState(false);
@@ -47,9 +46,9 @@ export default function LinkMenu() {
           <MenubarMenu>
             {/* Trailer Tab */}
             <MenubarTrigger>Trailers</MenubarTrigger>
-            <MenubarContent className="max-h-[80vh] w-80 scrollbar scrollbar-default">
+            <MenubarContent className="scrollbar scrollbar-default max-h-[80vh] w-80">
               {gameTrailers.videos.map((video) => (
-                <MenubarItem key={video.url} className="w-full p-0 ">
+                <MenubarItem key={video.url} className="w-full p-0">
                   <div onClick={(e) => (alertsEnabled ? handleExternalLinkClick(video.url, e) : null)} className="w-full">
                     <YouTubeVideoCard videoUrl={video.url} openInNewTab={!alertsEnabled} />
                   </div>
@@ -76,15 +75,15 @@ export default function LinkMenu() {
             <MenubarTrigger>External Links</MenubarTrigger>
             <MenubarContent>
               {externalLinks.socialMedia.map((link) => (
-                <MenubarItem 
-                  key={link.platform} 
-                  asChild 
+                <MenubarItem
+                  key={link.platform}
+                  asChild
                   className="focus:bg-opacity-50"
-                  style={{ '--focus-bg-color': link.platformColor } as React.CSSProperties} // This creates a CSS variable for Tailwind to use to work around TW not using dynamic classes
+                  style={{ "--focus-bg-color": link.platformColor } as React.CSSProperties} // This creates a CSS variable for Tailwind to use to work around TW not using dynamic classes
                 >
                   {alertsEnabled ? (
-                    <div 
-                      className="flex min-w-56 cursor-pointer items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/30" 
+                    <div
+                      className="flex min-w-56 cursor-pointer items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/30"
                       onClick={(e) => handleExternalLinkClick(link.url, e)}
                     >
                       <span className="capitalize">{link.platform}</span>
@@ -93,12 +92,7 @@ export default function LinkMenu() {
                       </MenubarShortcut>
                     </div>
                   ) : (
-                    <a 
-                      href={link.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="flex min-w-56 items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/50"
-                    >
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex min-w-56 items-center justify-between px-2 py-1.5 hover:bg-(--focus-bg-color)/50">
                       <span className="capitalize">{link.platform}</span>
                       <MenubarShortcut>
                         <SocialMediaButton platform={link.platform as SocialMediaPlatforms} iconClassName="text-white" disableHref />

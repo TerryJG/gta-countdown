@@ -177,6 +177,7 @@ export const YouTubeVideoCard = ({
   }
 
   // Format display date based on component props. This prevents both relativeTime and absoluteTime props being used at the same time
+  // Note: Both getRelativeTimeFromNow and getAbsoluteTimeElapsed now return "ago" or "in the future" as part of the string
   const displayDate = relativeDate && uploadDate ? getRelativeTimeFromNow(uploadDate) : absoluteDate && uploadDate ? getAbsoluteTimeElapsed(uploadDate) : null;
 
   return (
@@ -189,7 +190,7 @@ export const YouTubeVideoCard = ({
       <p className="line-clamp-1 text-sm font-bold text-slate-100 transition-opacity duration-300 ease-in-out">{videoData.title}</p>
       <div className="flex flex-col">
         {showChannelName && <p className="text-xs text-slate-100 transition-opacity duration-300 ease-in-out">{videoData.channelName}</p>}
-        {displayDate && <p className="text-xs text-slate-100 transition-opacity duration-300 ease-in-out">{displayDate} ago</p>}
+        {displayDate && <p className="text-xs text-slate-100 transition-opacity duration-300 ease-in-out">{displayDate}</p>}
       </div>
       <div className="relative mt-2 w-full overflow-hidden rounded">
         <div className="relative aspect-video shadow-2xl">
