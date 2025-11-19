@@ -7,3 +7,6 @@ export const isLoading = atom(true);
 
 export const isBlurEnabled = atomWithStorage("isBlurEnabled", true);
 export const isAlertEnabled = atomWithStorage("isAlertEnabled", true);
+
+export const currentBackgroundImage = atom<string | null>(null);
+export const isAnimating = atom<boolean>(false);

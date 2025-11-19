@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAtom, isLoading } from "@/stores/globalStore";
+import { useAtom, isLoading, currentBackgroundImage } from "@/stores/globalStore";
 import { getRelativeTimeFromNow, getAbsoluteTimeElapsed } from "@/utils/";
 import { gameTrailers } from "@/constants/appInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,6 +39,7 @@ export const YouTubeVideoCard = ({
   const [uploadDate, setUploadDate] = useState<string | null>(null);
   const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
   const [_, setIsComponentLoading] = useAtom(isLoading);
+  const [__, setCurrentBackgroundImage] = useAtom(currentBackgroundImage);
   const thumbnailRef = useRef<HTMLImageElement>(null);
 
   /* 
@@ -180,12 +181,24 @@ export const YouTubeVideoCard = ({
   // Note: Both getRelativeTimeFromNow and getAbsoluteTimeElapsed now return "ago" or "in the future" as part of the string
   const displayDate = relativeDate && uploadDate ? getRelativeTimeFromNow(uploadDate) : absoluteDate && uploadDate ? getAbsoluteTimeElapsed(uploadDate) : null;
 
+  const handleMouseEnter = () => {
+    if (videoData?.thumbnailURL) {
+      setCurrentBackgroundImage(videoData.thumbnailURL);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setCurrentBackgroundImage(null);
+  };
+
   return (
     <a
       href={videoData.url}
       target={openInNewTab ? "_blank" : "_self"}
       rel="noopener noreferrer"
       className={`block w-full min-w-[250px] overflow-hidden rounded px-2 py-4 ${className}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <p className="line-clamp-1 text-sm font-bold text-slate-100 transition-opacity duration-300 ease-in-out">{videoData.title}</p>
       <div className="flex flex-col">

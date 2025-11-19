@@ -1,0 +1,12 @@
+.overlay-gradient {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.overlay-gradient.hidden {
+  opacity: 0;
+}
