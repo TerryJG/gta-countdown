@@ -64,7 +64,7 @@ export const externalLinks = {
     {
       storeName: "Xbox Store",
       homepageUrl: "https://www.xbox.com/en-US/games/all-games/console",
-      productURL: "",
+      productURL: "https://www.xbox.com/en-US/games/store/grand-theft-auto-vi/9NL3WWNZLZZN",
     },
     {
       storeName: "PlayStation Store",

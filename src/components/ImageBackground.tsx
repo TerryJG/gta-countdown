@@ -19,12 +19,12 @@ export default function ImageBackground() {
         await wait(500); // Wait for fade out
         setDisplayImage(imageUrl);
         await wait(300); // Delay before fade in
-        setOpacity(0.04);
+        setOpacity(0.08);
       } else if (!displayImage) {
         // First image - just fade in
         setDisplayImage(imageUrl);
         await wait(300); // Delay before fade in
-        setOpacity(0.04);
+        setOpacity(0.08);
       }
     };
 
