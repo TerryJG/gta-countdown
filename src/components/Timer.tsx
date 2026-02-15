@@ -127,7 +127,7 @@ export default function Timer({ targetDate, className = "" }: { targetDate: stri
           {greatestUnit !== "days" && timeConfig.showDays && <TimeUnit label="Day" getUnitValue={getDays} />}
           {greatestUnit !== "hours" && timeConfig.showHours && <TimeUnit label="Hour" getUnitValue={getHours} />}
           {greatestUnit !== "minutes" && timeConfig.showMinutes && <TimeUnit label="Minute" getUnitValue={getMinutes} />}
-          {greatestUnit !== "seconds" && <TimeUnit label="Second" getUnitValue={getSeconds} className="col-span-2" />}
+          {greatestUnit !== "seconds" && <TimeUnit label="Second" getUnitValue={getSeconds} />}
         </div>
       </div>
 
