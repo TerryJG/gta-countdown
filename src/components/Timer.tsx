@@ -132,7 +132,7 @@ export default function Timer({ targetDate, className = "" }: { targetDate: stri
       </div>
 
       {/* Desktop layout */}
-      <div className="hidden sm:flex sm:flex-nowrap sm:justify-center md:gap-6 lg:gap-8">
+      <div className="hidden sm:flex sm:flex-nowrap sm:justify-center sm:gap-4 md:gap-6 lg:gap-8">
         <TimeUnit label="Month" getUnitValue={getMonths} visible={timeConfig.showMonths} />
         <TimeUnit label="Day" getUnitValue={getDays} visible={timeConfig.showDays} />
         <TimeUnit label="Hour" getUnitValue={getHours} visible={timeConfig.showHours} />
