@@ -4,9 +4,13 @@ import Loader from "@/components/ui/Loader";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import PlatformButtons from "@/components/GamePlatformButtons";
 import ImageBackground from "@/components/ImageBackground";
+import NotificationToast from "@/components/NotificationToast";
+import { useNotificationSystem } from "@/hooks/useNotificationSystem";
 import { releaseDate } from "@/constants/appInfo";
 
 export default function App() {
+  useNotificationSystem();
+
   return (
     <main id="app" className="font-inter relative flex h-dvh flex-col overflow-hidden bg-linear-to-t from-[#111117] to-[#1a1826] px-4 text-white">
       <section id="top-section" className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center gap-2">
@@ -37,6 +41,7 @@ export default function App() {
         <Loader />
       </aside>
 
+      <NotificationToast />
       <ImageBackground />
     </main>
   );

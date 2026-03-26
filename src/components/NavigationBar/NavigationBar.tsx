@@ -4,6 +4,7 @@ import { YouTubeVideoCard } from "@/components/NavigationBar/YouTubeVideoCard";
 import { type SocialMediaPlatforms, SocialMediaButton } from "@/components/SocialMediaButtons";
 import { useAtom, isBlurEnabled, isAlertEnabled } from "@/stores/globalStore";
 import { useState } from "react";
+import { openExternalLink } from "@/utils/externalLinks";
 import AlertDialog from "@/components/AlertDialog";
 
 export default function NavigationBar() {
@@ -12,7 +13,6 @@ export default function NavigationBar() {
   const [showAlert, setShowAlert] = useState(false);
   const [pendingUrl, setPendingUrl] = useState<string | null>(null);
 
-  // Function to handle external link clicks
   const handleExternalLinkClick = (url: string, event: React.MouseEvent) => {
     if (alertsEnabled) {
       event.preventDefault();
@@ -21,16 +21,14 @@ export default function NavigationBar() {
     }
   };
 
-  // Function to confirm navigation
   const confirmNavigation = () => {
     if (pendingUrl) {
-      window.open(pendingUrl, "_blank", "noopener,noreferrer");
+      openExternalLink(pendingUrl);
       setShowAlert(false);
       setPendingUrl(null);
     }
   };
 
-  // Function to cancel navigation
   const cancelNavigation = () => {
     setShowAlert(false);
     setPendingUrl(null);
@@ -139,7 +137,7 @@ export default function NavigationBar() {
               <MenubarCheckboxItem
                 checked={blurEffectEnabled}
                 onCheckedChange={setBlurEffectEnabled}
-                onSelect={(event) => event.preventDefault()} // When the user toggles a <MenubarCheckboxItem /> item, prevent the <MenubarContent> from automatically closing
+                onSelect={(event) => event.preventDefault()}
               >
                 Blur Effect
               </MenubarCheckboxItem>

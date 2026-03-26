@@ -1,143 +1,71 @@
 import { useEffect, useState } from "react";
 import { useAtom, isLoading } from "@/stores/globalStore";
 import { formatTime } from "@/utils/formatTime";
-import { calculateTimeRemaining } from "@/utils/calculateTimeRemaining";
+import { calculateTimeRemaining, type TimeRemaining } from "@/utils/calculateTimeRemaining";
 
-const TimeUnit = ({ getUnitValue, label, visible = true, className = "" }: { getUnitValue: () => number; label: string; visible?: boolean; className?: string }) => {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    setValue(getUnitValue()); // First grab the initial value
-
-    const timerId = setInterval(() => {
-      setValue(getUnitValue()); // Then update the specific time unit value on each interval
-    }, 1000);
-
-    return () => clearInterval(timerId);
-  }, [getUnitValue]);
-
-  if (!visible) return null; // Don't do anything if the time unit value = 0
-
+const TimeUnit = ({ value, label, isGreatest = false }: { value: number; label: string; isGreatest?: boolean }) => {
   return (
-    <div className={`text-center select-none ${className}`}>
-      <p className="text-2xl font-bold sm:text-3xl md:text-4xl">{formatTime(value)}</p>
-      <p className="text-sm text-gray-400 sm:text-base">{value === 1 ? label : `${label}s`}</p>
+    <div className={`text-center select-none ${isGreatest ? 'col-span-1 row-span-2 sm:col-span-1 sm:row-span-1' : ''}`}>
+      <p className={isGreatest ? 'text-7xl font-bold md:text-8xl' : 'text-2xl font-bold sm:text-3xl md:text-4xl'}>
+        {formatTime(value)}
+      </p>
+      <p className={isGreatest ? 'text-2xl font-medium text-gray-300' : 'text-sm text-gray-400 sm:text-base'}>
+        {value === 1 ? label : `${label}s`}
+      </p>
     </div>
   );
-};
-
-const GreatestTimeUnit = ({ getUnitValue, label, visible = true, className = "" }: { getUnitValue: () => number; label: string; visible?: boolean; className?: string }) => {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    setValue(getUnitValue()); // First grab the initial value
-
-    const timerId = setInterval(() => {
-      setValue(getUnitValue()); // Then update the specific time unit value on each interval
-    }, 1000);
-
-    return () => clearInterval(timerId);
-  }, [getUnitValue]);
-
-  if (!visible) return null;
-
-  return (
-    <div className={`text-center select-none ${className}`}>
-      <p className="text-7xl font-bold sm:text-7xl md:text-8xl">{formatTime(value)}</p>
-      <p className="text-2xl font-medium text-gray-300 sm:text-2xl">{value === 1 ? label : `${label}s`}</p>
-    </div>
-  );
-};
-
-// Determine the greatest time unit to show to the user. The unit will return false if the value from dayjs is = 0
-const getGreatestTimeUnit = (timeConfig: { showMonths: boolean; showDays: boolean; showHours: boolean; showMinutes: boolean }) => {
-  if (timeConfig.showMonths) return "months";
-  if (timeConfig.showDays) return "days";
-  if (timeConfig.showHours) return "hours";
-  if (timeConfig.showMinutes) return "minutes";
-  return "seconds";
 };
 
 export default function Timer({ targetDate, className = "" }: { targetDate: string | Date; className?: string }) {
-  // If any of the time unit's value reaches 0, hide it entirely
-  const [timeConfig, setTimeConfig] = useState({
-    showMonths: false,
-    showDays: false,
-    showHours: false,
-    showMinutes: false,
-  });
-
+  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(() => calculateTimeRemaining(targetDate));
   const [_, setIsComponentLoading] = useAtom(isLoading);
-
-  useEffect(() => {
-    const initialTimeRemaining = calculateTimeRemaining(targetDate);
-    setTimeConfig({
-      showMonths: initialTimeRemaining.showMonths,
-      showDays: initialTimeRemaining.showDays,
-      showHours: initialTimeRemaining.showHours,
-      showMinutes: initialTimeRemaining.showMinutes,
-    });
-  }, [targetDate]);
 
   useEffect(() => {
     setIsComponentLoading(false);
 
+    const timerId = setInterval(() => {
+      setTimeRemaining(calculateTimeRemaining(targetDate));
+    }, 1000);
+
     return () => {
+      clearInterval(timerId);
       setIsComponentLoading(true);
     };
-  }, [setIsComponentLoading]);
+  }, [targetDate, setIsComponentLoading]);
 
-  // Grab each time unit's current value
-  const getMonths = () => calculateTimeRemaining(targetDate).months;
-  const getDays = () => calculateTimeRemaining(targetDate).days;
-  const getHours = () => calculateTimeRemaining(targetDate).hours;
-  const getMinutes = () => calculateTimeRemaining(targetDate).minutes;
-  const getSeconds = () => calculateTimeRemaining(targetDate).seconds;
+  const units = [
+    { value: timeRemaining.months, label: "Month", visible: timeRemaining.showMonths },
+    { value: timeRemaining.days, label: "Day", visible: timeRemaining.showDays },
+    { value: timeRemaining.hours, label: "Hour", visible: timeRemaining.showHours },
+    { value: timeRemaining.minutes, label: "Minute", visible: timeRemaining.showMinutes },
+    { value: timeRemaining.seconds, label: "Second", visible: true },
+  ];
 
-  const greatestUnit = getGreatestTimeUnit(timeConfig); // Get the greatest time unit for the first column
-  const showGreatestTimeUnit = () => { // Render the greatest time unit based on which one is currently greatest
-    switch (greatestUnit) {
-      case "months":
-        return <GreatestTimeUnit label="Month" getUnitValue={getMonths} visible={timeConfig.showMonths} className="w-full" />;
-      case "days":
-        return <GreatestTimeUnit label="Day" getUnitValue={getDays} visible={timeConfig.showDays} className="w-full" />;
-      case "hours":
-        return <GreatestTimeUnit label="Hour" getUnitValue={getHours} visible={timeConfig.showHours} className="w-full" />;
-      case "minutes":
-        return <GreatestTimeUnit label="Minute" getUnitValue={getMinutes} visible={timeConfig.showMinutes} className="w-full" />;
-      case "seconds":
-        return <GreatestTimeUnit label="Second" getUnitValue={getSeconds} visible={true} className="w-full" />;
-      default:
-        return null;
-    }
-  };
+  const visibleUnits = units.filter(unit => unit.visible);
+  const greatestUnitIndex = 0;
+
+  const greatestUnit = visibleUnits[greatestUnitIndex];
+  const remainingUnits = visibleUnits.slice(1);
 
   return (
     <section id="timer" className={`w-full ${className}`}>
-      {/* For mobile users, the timer will be laid out in a grid with the greatest time unit on the left,
-          and remaining units on the right in a 2-column grid with seconds spanning the full width */}
+      {/* Mobile layout - greatest unit on left, others in grid on right */}
       <div className="flex gap-2 justify-center sm:hidden">
-        <div className="flex items-center justify-center"> {/* First column - Greatest time unit */}
-          {showGreatestTimeUnit()}
+        <div className="flex items-center justify-center">
+          <TimeUnit value={greatestUnit.value} label={greatestUnit.label} isGreatest />
         </div>
-
-        {/* Second column - Grid of remaining units with seconds spanning full width */}
         <div className="grid grid-cols-2 gap-1 auto-rows-min">
-          {greatestUnit !== "months" && timeConfig.showMonths && <TimeUnit label="Month" getUnitValue={getMonths} />}
-          {greatestUnit !== "days" && timeConfig.showDays && <TimeUnit label="Day" getUnitValue={getDays} />}
-          {greatestUnit !== "hours" && timeConfig.showHours && <TimeUnit label="Hour" getUnitValue={getHours} />}
-          {greatestUnit !== "minutes" && timeConfig.showMinutes && <TimeUnit label="Minute" getUnitValue={getMinutes} />}
-          {greatestUnit !== "seconds" && <TimeUnit label="Second" getUnitValue={getSeconds} />}
+          {remainingUnits.map(unit => (
+            <TimeUnit key={unit.label} value={unit.value} label={unit.label} />
+          ))}
         </div>
       </div>
 
-      {/* Desktop layout */}
-      <div className="hidden sm:flex sm:flex-nowrap sm:justify-center sm:gap-4 md:gap-6 lg:gap-8">
-        <TimeUnit label="Month" getUnitValue={getMonths} visible={timeConfig.showMonths} />
-        <TimeUnit label="Day" getUnitValue={getDays} visible={timeConfig.showDays} />
-        <TimeUnit label="Hour" getUnitValue={getHours} visible={timeConfig.showHours} />
-        <TimeUnit label="Minute" getUnitValue={getMinutes} visible={timeConfig.showMinutes} />
-        <TimeUnit label="Second" getUnitValue={getSeconds} visible={true} />
+      {/* Desktop layout - all units in a row */}
+      <div className="hidden sm:flex sm:flex-nowrap sm:justify-center sm:gap-6">
+        {visibleUnits.map(unit => (
+          <TimeUnit key={unit.label} value={unit.value} label={unit.label} />
+        ))}
       </div>
     </section>
   );
