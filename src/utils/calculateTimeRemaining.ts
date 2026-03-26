@@ -3,14 +3,8 @@
  *
  * Returns months + days separately
  */
-
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "@/utils/dayjs";
 import { releaseDate } from "@/constants/appInfo";
-
-dayjs.extend(duration);
-dayjs.extend(relativeTime);
 
 export type TimeRemaining = {
   months: number;

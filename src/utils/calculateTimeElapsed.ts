@@ -3,11 +3,7 @@
  * getRelativeTimeElapsed: Returns relative time values ("a few seconds ago", "2 months ago")
  * getAbsoluteTimeElapsed: Returns precise time values ("2 years 3 months 5 days ago")
  */
-
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-
-dayjs.extend(duration);
+import dayjs from "@/utils/dayjs";
 
 export type TimeElapsed = {
   days: number;
