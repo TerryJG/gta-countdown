@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useAtom, isLoading, isAlertEnabled } from "@/stores/globalStore";
 import { externalLinks } from "@/constants/appInfo";
+import { openExternalLink } from "@/utils/externalLinks";
 import AlertDialog from "@/components/AlertDialog";
 
 const platforms = [
@@ -51,21 +52,12 @@ export default function GamePlatformButtons() {
   const [pendingUrl, setPendingUrl] = useState<string | null>(null);
 
   const handleImageLoad = (platformSrc: string) => {
-    setLoadedImages((prev) => ({
-      ...prev,
-      [platformSrc]: true,
-    }));
+    setLoadedImages((prev) => ({ ...prev, [platformSrc]: true }));
   };
 
-  // Get product URL for a platform from appInfo
   const getProductUrl = (storeName: string): string => {
     const store = externalLinks.storefronts.find((store) => store.storeName === storeName);
-
-    if (store && store.productURL && store.productURL.length > 0) {
-      return store.productURL;
-    }
-
-    return "";
+    return store?.productURL || "";
   };
 
   const handleExternalLinkClick = (url: string, event: React.MouseEvent) => {
@@ -78,7 +70,7 @@ export default function GamePlatformButtons() {
 
   const confirmNavigation = () => {
     if (pendingUrl) {
-      window.open(pendingUrl, "_blank", "noopener,noreferrer");
+      openExternalLink(pendingUrl);
       setShowAlert(false);
       setPendingUrl(null);
     }
@@ -90,18 +82,10 @@ export default function GamePlatformButtons() {
   };
 
   useEffect(() => {
-    const allImagesLoaded = platforms.every((platform) => loadedImages[platform.src]); // Check if all platform images are loaded
+    const allImagesLoaded = platforms.every((platform) => loadedImages[platform.src]);
+    setIsComponentLoading(!allImagesLoaded);
 
-    // If all platform images loaded, mark component as ready to load
-    if (platforms.length === 0 || (platforms.length > 0 && allImagesLoaded)) {
-      setIsComponentLoading(false);
-    } else {
-      setIsComponentLoading(true);
-    }
-
-    return () => {
-      setIsComponentLoading(true);
-    };
+    return () => setIsComponentLoading(true);
   }, [loadedImages, setIsComponentLoading]);
 
   return (
@@ -111,9 +95,16 @@ export default function GamePlatformButtons() {
 
       {platforms.map((platform, index) => {
         const productUrl = getProductUrl(platform.storeName);
-        const hasLink = productUrl.length > 0;
+        if (!productUrl) return null;
 
-        if (!hasLink) return null; // Don't show the button if no product url exists
+        const platformImage = (
+          <img
+            className={`${platform.width} ${platform.iconClassName}`}
+            src={platform.src}
+            alt={platform.alt}
+            onLoad={() => handleImageLoad(platform.src)}
+          />
+        );
 
         return (
           <Button
@@ -124,12 +115,10 @@ export default function GamePlatformButtons() {
             onClick={alertsEnabled ? (e) => handleExternalLinkClick(productUrl, e) : undefined}
           >
             {alertsEnabled ? (
-              <div className="flex items-center justify-center">
-                <img className={`${platform.width} ${platform.iconClassName}`} src={platform.src} alt={platform.alt} onLoad={() => handleImageLoad(platform.src)} />
-              </div>
+              <div className="flex items-center justify-center">{platformImage}</div>
             ) : (
               <a href={productUrl} target="_blank" rel="noopener noreferrer">
-                <img className={`${platform.width} ${platform.iconClassName}`} src={platform.src} alt={platform.alt} onLoad={() => handleImageLoad(platform.src)} />
+                {platformImage}
               </a>
             )}
           </Button>

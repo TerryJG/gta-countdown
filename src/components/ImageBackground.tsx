@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAtom, currentBackgroundImage, isBlurEnabled } from "@/stores/globalStore";
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 export default function ImageBackground() {
   const [imageUrl] = useAtom(currentBackgroundImage);
   const [blurEnabled] = useAtom(isBlurEnabled);
@@ -16,14 +14,14 @@ export default function ImageBackground() {
       if (displayImage && displayImage !== imageUrl) {
         // Image change - fade out first
         setOpacity(0);
-        await wait(500); // Wait for fade out
+        await new Promise(resolve => setTimeout(resolve, 500));
         setDisplayImage(imageUrl);
-        await wait(300); // Delay before fade in
+        await new Promise(resolve => setTimeout(resolve, 300));
         setOpacity(0.08);
       } else if (!displayImage) {
         // First image - just fade in
         setDisplayImage(imageUrl);
-        await wait(300); // Delay before fade in
+        await new Promise(resolve => setTimeout(resolve, 300));
         setOpacity(0.08);
       }
     };
