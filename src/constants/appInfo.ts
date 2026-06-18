@@ -6,16 +6,22 @@ export const releaseDate = {
 export const gameTrailers = {
   videos: [
     {
-      url: "https://www.youtube.com/watch?v=QdBZY2fkU-0",
-      title: "Grand Theft Auto VI Trailer 1", // NoEmbed should automatically parse the YT title, but in the event it doesn't, this is a fallback
-      uploadDate: "2023-12-04T18:07:00Z",
-      description: "",
+      url: "https://www.youtube.com/watch?v=EiQEBYDox_k",
+      title: "Grand Theft Auto VI: Official Cover Art Reveal",
+      uploadDate: "2026-06-18T13:03:29Z",
+      description: "First official trailer for Grand Theft Auto VI",
     },
     {
       url: "https://www.youtube.com/watch?v=VQRLujxTm3c",
       title: "Grand Theft Auto VI Trailer 2",
       uploadDate: "2025-05-06T09:29:00Z",
       description: "First official trailer for Grand Theft Auto VI",
+    },
+    {
+      url: "https://www.youtube.com/watch?v=QdBZY2fkU-0",
+      title: "Grand Theft Auto VI Trailer 1", // NoEmbed should automatically parse the YT title, but in the event it doesn't, this is a fallback
+      uploadDate: "2023-12-04T18:07:00Z",
+      description: "",
     },
   ],
 };

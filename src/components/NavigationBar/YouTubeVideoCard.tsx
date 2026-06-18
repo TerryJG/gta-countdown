@@ -4,7 +4,7 @@ import { getRelativeTimeFromNow, getAbsoluteTimeElapsed } from "@/utils/";
 import { gameTrailers } from "@/constants/appInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Skeleton } from "@/components/ui/skeleton";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationTriangle, faClock } from "@fortawesome/free-solid-svg-icons";
 
 export type VideoData = {
   url: string;
@@ -203,7 +203,12 @@ export const YouTubeVideoCard = ({
       <p className="line-clamp-1 text-sm font-bold text-slate-100 transition-opacity duration-300 ease-in-out">{videoData.title}</p>
       <div className="flex flex-col">
         {showChannelName && <p className="text-xs text-slate-100 transition-opacity duration-300 ease-in-out">{videoData.channelName}</p>}
-        {displayDate && <p className="text-xs text-slate-100 transition-opacity duration-300 ease-in-out">{displayDate}</p>}
+        {displayDate && (
+          <p className="flex items-center gap-1 text-xs text-slate-100 transition-opacity duration-300 ease-in-out">
+            <FontAwesomeIcon icon={faClock} className="text-[10px] text-white" />
+            {displayDate}
+          </p>
+        )}
       </div>
       <div className="relative mt-2 w-full overflow-hidden rounded">
         <div className="relative aspect-video shadow-2xl">

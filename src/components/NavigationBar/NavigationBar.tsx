@@ -43,7 +43,7 @@ export default function NavigationBar() {
         <Menubar className="inline-flex w-auto">
           <MenubarMenu>
             {/* Trailer Tab */}
-            <MenubarTrigger>Trailers</MenubarTrigger>
+            <MenubarTrigger>Promotional Trailers</MenubarTrigger>
             <MenubarContent className="scrollbar scrollbar-default max-h-[80vh] w-80">
               {gameTrailers.videos.map((video) => (
                 <MenubarItem key={video.url} className="w-full p-0">

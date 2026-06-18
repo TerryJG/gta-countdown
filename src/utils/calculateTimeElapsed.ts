@@ -93,6 +93,11 @@ export function getAbsoluteTimeElapsed(dateString: string | Date): string {
     return `${parts.join(" ")} in the future`;
   }
 
+  // Within the first 24 hours, show "Today" (same calendar day) or "Yesterday" (crossed midnight).
+  if (now.diff(date, "hour") < 24) {
+    return now.isSame(date, "day") ? "Today" : "Yesterday";
+  }
+
   // For past dates
   const years = now.diff(date, "year");
   const months = now.diff(date, "month") % 12;
