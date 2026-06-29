@@ -111,7 +111,7 @@ export default function GamePlatformButtons() {
             key={index}
             className={`h-10 p-4 ${platform.buttonClassName} ${platform.buttonColor} mb-2`}
             asChild={!alertsEnabled}
-            title={`Wishlist for ${platform.alt}`}
+            title={`Pre-order for ${platform.alt}`}
             onClick={alertsEnabled ? (e) => handleExternalLinkClick(productUrl, e) : undefined}
           >
             {alertsEnabled ? (
