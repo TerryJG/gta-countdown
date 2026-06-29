@@ -3,6 +3,8 @@ export const releaseDate = {
   iso: "2026-11-19T00:00:00Z",
 };
 
+export const coverArtImage = "/gta-countdown/Official_Cover_Art_landscape.jpg";
+
 export const gameTrailers = {
   videos: [
     {
