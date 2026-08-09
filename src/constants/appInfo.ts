@@ -60,18 +60,18 @@ export const externalLinks = {
   ],
   websites: [
     {
-      websiteName: "Official Website",
-      icon: "platforms/rockstargames.webp",
+      websiteName: "R* Games Official Website",
+      icon: "/gta-countdown/platforms/rockstargames.webp",
       url: "https://www.rockstargames.com/",
     },
     {
       websiteName: "Social Club",
-      icon: "platforms/rockstargames.webp",
+      icon: "/gta-countdown/platforms/rockstargames.webp",
       url: "https://socialclub.rockstargames.com/",
     },
     {
       websiteName: "GTAVI Official Website",
-      icon: "platforms/rockstargames.webp",
+      icon: "/gta-countdown/gta-logo-variant-3-white.svg",
       url: "https://www.rockstargames.com/VI",
     },
   ],
