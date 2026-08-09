@@ -8,16 +8,23 @@ export const coverArtImage = "/gta-countdown/Official_Cover_Art_landscape.jpg";
 export const gameTrailers = {
   videos: [
     {
+      url: "https://www.youtube.com/watch?v=qq76pQsI1iw",
+      title: "Grand Theft Auto VI: An Extended Look Coming August 27",
+      uploadDate: "2026-08-06T08:01:00Z",
+      description:
+        "Grand Theft Auto VI: An Extended Look will premiere on Netflix Thursday, August 27 at 3 p.m. ET and will also launch on the official Rockstar Games YouTube channel and the Grand Theft Auto VI site at 9 p.m. ET on August 27.",
+    },
+    {
       url: "https://www.youtube.com/watch?v=EiQEBYDox_k",
       title: "Grand Theft Auto VI: Official Cover Art Reveal",
       uploadDate: "2026-06-18T13:03:29Z",
-      description: "First official trailer for Grand Theft Auto VI",
+      description: "Pre-orders for Grand Theft Auto VI will officially begin on June 25 on digital storefronts and at other select retailers.",
     },
     {
       url: "https://www.youtube.com/watch?v=VQRLujxTm3c",
       title: "Grand Theft Auto VI Trailer 2",
       uploadDate: "2025-05-06T09:29:00Z",
-      description: "First official trailer for Grand Theft Auto VI",
+      description: "Jason and Lucia have always known the deck is stacked against them. But when an easy score goes wrong, they find themselves on the darkest side of the sunniest place in America, in the middle of a criminal conspiracy stretching across the state of Leonida — forced to rely on each other more than ever if they want to make it out alive. ",
     },
     {
       url: "https://www.youtube.com/watch?v=QdBZY2fkU-0",
