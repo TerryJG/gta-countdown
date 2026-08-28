@@ -7,6 +7,13 @@ export const coverArtImage = "/gta-countdown/Official_Cover_Art_landscape.jpg";
 
 export const gameTrailers = {
   videos: [
+        {
+      url: "https://www.youtube.com/watch?v=tJbzMqJGH4k",
+      title: "Grand Theft Auto VI: An Extended Look",
+      uploadDate: "2026-08-27T15:00:00Z",
+      description:
+        "Captured entirely from in-game footage on PlayStation 5, this extended look at the next Grand Theft Auto showcases the biggest, most immersive evolution of the series yet. ",
+    },
     {
       url: "https://www.youtube.com/watch?v=qq76pQsI1iw",
       title: "Grand Theft Auto VI: An Extended Look Coming August 27",
